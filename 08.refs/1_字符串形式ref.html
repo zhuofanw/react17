@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div id="test"></div>
+		<script type="text/javascript" src="../js/react.development.js"></script>
+		<script
+			type="text/javascript"
+			src="../js/react-dom.development.js"
+		></script>
+		<script type="text/javascript" src="../js/babel.min.js"></script>
+		<script type="text/javascript" src="../js/prop-types.js"></script>
+		<script type="text/babel">
+			class Demo extends React.Component {
+				showData = () => {
+					const input = this.refs.input1; //input DOM
+					alert(input.value);
+				};
+				seeData = () => {
+					const input = this.refs.input2;
+					alert(input.value);
+				};
+				render() {
+					return (
+						<div>
+							<input ref="input1" type="text" placeholder="点击按钮提示数据" />
+							&nbsp;
+							<button onClick={this.showData}>点我提示左侧的数据</button>&nbsp;
+							<input
+								onBlur={this.seeData}
+								ref="input2"
+								type="text"
+								placeholder="失去焦点提示数据"
+							/>
+						</div>
+					);
+				}
+			}
+
+			ReactDOM.render(<Demo />, document.getElementById("test"));
+		</script>
+	</body>
+</html>
