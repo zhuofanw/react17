@@ -40,9 +40,14 @@
 					console.log("Sum-forceUpdated");
 				};
 
+				// 若state的值任何时候都取决于props,可以使用
 				static getDerivedStateFromProps(props, state) {
 					console.log("Sum-getDerivedStateFromProps", props, state);
-					return props;
+					return null;
+				}
+				getSnapshotBeforeUpdate(prevProps, prevState) {
+					console.log("Sum-getSnapshotBeforeUpdate");
+					return "frank";
 				}
 				componentDidMount() {
 					console.log("Sum-componentDidMount");
@@ -56,8 +61,13 @@
 					return true;
 				}
 
-				componentDidUpdate() {
-					console.log("Sum-componentDidUpdate");
+				componentDidUpdate(prevProps, prevState, snapshotValue) {
+					console.log(
+						"Sum-componentDidUpdate",
+						prevProps,
+						prevState,
+						snapshotValue
+					);
 				}
 				render() {
 					console.log("Sum-render");
