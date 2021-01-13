@@ -30,6 +30,21 @@
 		<script type="text/javascript" src="../js/17.0.1/prop-types.js"></script>
 		<script type="text/babel">
 			class NewsList extends React.Component {
+				/*
+                1.初始化阶段:由ReactDOM.render()触发初次渲染
+                    (1) constructor()
+                    (2) getDerivedStateFromProps()
+                    (3) render()
+                    (4) componentDidMount()
+                2.更新阶段:this.setState()或父组件重新render触发
+                    (1) getDerivedStateFromProps()
+                    (2) shouldComponentUpdate()
+                    (3) render()
+                    (4) getSnapshotBeforeUpdate()
+                    (5) componentDidUpdate()
+                3.卸载阶段:
+                    (1)componentWillUnmount()
+            */
 				state = {
 					newsArr: [],
 				};
@@ -39,7 +54,7 @@
 						//获取原状态
 						const { newsArr } = this.state;
 						//模拟一条新闻
-						const news = "新闻" + (newsArr.length + 1);
+						const news = "新闻:" + (newsArr.length + 1);
 						//更新状态
 						this.setState({
 							newsArr: [news, ...newsArr],
