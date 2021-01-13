@@ -15,6 +15,21 @@
 		<script type="text/javascript" src="../js/babel.min.js"></script>
 		<script type="text/javascript" src="../js/prop-types.js"></script>
 		<script type="text/babel">
+			/*
+			1.初始化阶段:由ReactDOM.render()初次渲染
+				(1) constructor
+				(2) componentWillMount()
+				(3) render()
+				(4) componentDidMount()
+			2.更新阶段:由组件内部this.setState()或父组件render触发
+				(0) componentWillReceiveProps()				<-- 子组件收到父组件Props变化
+				(1) shouldComponentUpdate() return boolean  <-- this.setState()
+				(2) componentWillUpdate()					<-- this.forceUpdate()
+				(3) render()
+				(4) componentDidUpdate()
+			3.卸载组件:由ReactDOM.unmountComponentAtNode()触发
+				(1) componentWillUnmount()
+			*/
 			class Count extends React.Component {
 				constructor(props) {
 					console.log("Sum-constructor");
@@ -71,7 +86,46 @@
 				}
 			}
 
-			ReactDOM.render(<Count />, document.getElementById("test"));
+			class A extends React.Component {
+				state = {
+					carName: "Benz",
+				};
+				changeCar = () => {
+					this.setState({
+						carName: "BMW",
+					});
+				};
+				render() {
+					return (
+						<div>
+							<div>我是A组件</div>
+							<button onClick={this.changeCar}>换车</button>
+							<B carName={this.state.carName} />
+						</div>
+					);
+				}
+			}
+
+			class B extends React.Component {
+				componentWillReceiveProps(props) {
+					console.log("B-componentWillReceiveProps", props);
+				}
+				shouldComponentUpdate() {
+					console.log("B-shouldComponentUpdate");
+					return true;
+				}
+				componentWillUpdate() {
+					console.log("B-componentWillUpdate");
+				}
+				componentDidUpdate() {
+					console.log("B-componentDidUpdate");
+				}
+				render() {
+					console.log("B-render");
+					return <div>我是B组件，接收到的车是{this.props.carName}</div>;
+				}
+			}
+			ReactDOM.render(<A />, document.getElementById("test"));
 		</script>
 	</body>
 </html>
