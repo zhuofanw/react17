@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>受控组件</title>
+	</head>
+	<body>
+		<div id="test"></div>
+		<script type="text/javascript" src="../js/react.development.js"></script>
+		<script
+			type="text/javascript"
+			src="../js/react-dom.development.js"
+		></script>
+		<script type="text/javascript" src="../js/babel.min.js"></script>
+		<script type="text/javascript" src="../js/prop-types.js"></script>
+		<script type="text/babel">
+			class Login extends React.Component {
+				//初始化状态
+				state = {
+					username: "",
+					password: "",
+				};
+				setUsername = (e) => {
+					this.setState({
+						username: e.target.value,
+					});
+				};
+				setPassword = (e) => {
+					this.setState({
+						password: e.target.value,
+					});
+				};
+				handleSubmit = (e) => {
+					const { username, password } = this.state;
+					alert(`用户名是${username},密码是${password}`);
+				};
+
+				render() {
+					return (
+						<form action="" onSubmit={this.handleSubmit}>
+							用户名:&nbsp;
+							<input
+								type="text"
+								name="username"
+								placeholder="请输入用户名"
+								onChange={this.setUsername}
+							/>
+							&nbsp; 密码:&nbsp;
+							<input
+								type="password"
+								name="password"
+								placeholder="请输入密码"
+								onChange={this.setPassword}
+							/>
+							&nbsp;
+							<button>Login</button>
+						</form>
+					);
+				}
+			}
+
+			ReactDOM.render(<Login />, document.getElementById("test"));
+		</script>
+	</body>
+</html>
