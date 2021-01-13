@@ -29,6 +29,9 @@
 						sum: sum + 1,
 					});
 				};
+				death = () => {
+					ReactDOM.unmountComponentAtNode(document.getElementById("test"));
+				};
 
 				componentWillMount() {
 					console.log("Sum-componentWillMount");
@@ -37,6 +40,20 @@
 				componentDidMount() {
 					console.log("Sum-componentDidMount");
 				}
+
+				componentWillUnmount() {
+					console.log("Sum-compnentWillUnmount");
+				}
+				shouldComponentUpdate() {
+					console.log("Sum-shouldComponentUpdate");
+					return true;
+				}
+				componentWillUpdate() {
+					console.log("Sum-componentWillUpdate");
+				}
+				componentDidUpdate() {
+					console.log("Sum-componentDidUpdate");
+				}
 				render() {
 					console.log("Sum-render");
 
@@ -44,6 +61,7 @@
 						<div>
 							<h2>当前求和为:{this.state.sum}</h2>
 							<button onClick={this.add}>点我+1</button>
+							<button onClick={this.death}>卸载组件</button>
 						</div>
 					);
 				}
