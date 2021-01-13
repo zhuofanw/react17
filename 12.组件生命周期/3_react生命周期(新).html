@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>react生命周期(新)</title>
+	</head>
+	<body>
+		<div id="test"></div>
+		<script
+			type="text/javascript"
+			src="../js/17.0.1/react.development.js"
+		></script>
+		<script
+			type="text/javascript"
+			src="../js/17.0.1/react-dom.development.js"
+		></script>
+		<script type="text/javascript" src="../js/17.0.1/babel.min.js"></script>
+		<script type="text/javascript" src="../js/17.0.1/prop-types.js"></script>
+		<script type="text/babel">
+			class Count extends React.Component {
+				constructor(props) {
+					console.log("Sum-constructor");
+					super(props);
+					this.state = {
+						sum: 0,
+					};
+				}
+				add = () => {
+					const { sum } = this.state;
+					this.setState({
+						sum: sum + 1,
+					});
+				};
+				death = () => {
+					ReactDOM.unmountComponentAtNode(document.getElementById("test"));
+				};
+				force = () => {
+					this.forceUpdate();
+					console.log("Sum-forceUpdated");
+				};
+
+				static getDerivedStateFromProps(props, state) {
+					console.log("Sum-getDerivedStateFromProps", props, state);
+					return props;
+				}
+				componentDidMount() {
+					console.log("Sum-componentDidMount");
+				}
+
+				componentWillUnmount() {
+					console.log("Sum-compnentWillUnmount");
+				}
+				shouldComponentUpdate() {
+					console.log("Sum-shouldComponentUpdate");
+					return true;
+				}
+
+				componentDidUpdate() {
+					console.log("Sum-componentDidUpdate");
+				}
+				render() {
+					console.log("Sum-render");
+
+					return (
+						<div>
+							<h2>当前求和为:{this.state.sum}</h2>
+							<button onClick={this.add}>点我+1</button>
+							<button onClick={this.death}>卸载组件</button>
+							<button onClick={this.force}>不更改数据，强制更新</button>
+						</div>
+					);
+				}
+			}
+			ReactDOM.render(<Count sum={199} />, document.getElementById("test"));
+		</script>
+	</body>
+</html>
