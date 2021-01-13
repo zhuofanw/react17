@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>react生命周期</title>
+	</head>
+	<body>
+		<div id="test"></div>
+		<script type="text/javascript" src="../js/react.development.js"></script>
+		<script
+			type="text/javascript"
+			src="../js/react-dom.development.js"
+		></script>
+		<script type="text/javascript" src="../js/babel.min.js"></script>
+		<script type="text/javascript" src="../js/prop-types.js"></script>
+		<script type="text/babel">
+			class Count extends React.Component {
+				constructor(props) {
+					console.log("Sum-constructor");
+					super(props);
+					this.state = {
+						sum: 0,
+					};
+				}
+				add = () => {
+					const { sum } = this.state;
+					this.setState({
+						sum: sum + 1,
+					});
+				};
+
+				componentWillMount() {
+					console.log("Sum-componentWillMount");
+				}
+
+				componentDidMount() {
+					console.log("Sum-componentDidMount");
+				}
+				render() {
+					console.log("Sum-render");
+
+					return (
+						<div>
+							<h2>当前求和为:{this.state.sum}</h2>
+							<button onClick={this.add}>点我+1</button>
+						</div>
+					);
+				}
+			}
+
+			ReactDOM.render(<Count />, document.getElementById("test"));
+		</script>
+	</body>
+</html>
